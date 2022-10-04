@@ -14,16 +14,13 @@ import { toast } from 'react-toastify'
 import Spinner from '../components/Spinner'
 import ListingItem from '../components/ListingItem'
 
-const Offers = () => {
+function Category() {
   const [listings, setListings] = useState(null)
   const [loading, setLoading] = useState(true)
 
   const params = useParams()
 
-  const onDelete = () =>{
-
-  }
-
+  
   useEffect(() => {
     const fetchListings = async () => {
       try {
@@ -33,7 +30,7 @@ const Offers = () => {
         // Create a query
         const q = query(
           listingsRef,
-          where('offer', '==', true),
+          where('type', '==', params.categoryName),
           orderBy('timestamp', 'desc'),
           limit(10)
         )
@@ -58,13 +55,15 @@ const Offers = () => {
     }
 
     fetchListings()
-  }, )
+  }, [params.categoryName])
 
   return (
     <div className='category'>
       <header>
         <p className='pageHeader'>
-         Offers
+          {params.categoryName === 'rent'
+            ? 'Places for rent'
+            : 'Places for sale'}
         </p>
       </header>
 
@@ -79,17 +78,17 @@ const Offers = () => {
                   listing={listing.data}
                   id={listing.id}
                   key={listing.id}
-                  onDelete={onDelete}
+                //   onDelete={onDelete}
                 />
               ))}
             </ul>
           </main>
         </>
       ) : (
-        <p>No listings for {params.categoryName}</p>
+        <p>There are no current offers</p>
       )}
     </div>
   )
 }
 
-export default Offers
+export default Category

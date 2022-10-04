@@ -4,6 +4,9 @@ import {db} from "../firebase.config"
 import { useEffect, useState } from "react"
 import { useNavigate , Link } from "react-router-dom"
 import {toast} from "react-toastify"
+import ListingItem from '../components/ListingItem'
+import arrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
+import homeIcon from '../assets/svg/homeIcon.svg'
 
 
 const Profile = () => {
@@ -72,20 +75,28 @@ const Profile = () => {
         </p>
       </div>
       <div className="profileCard">
-        <input type="text" id="name" 
-          className={!changeDetails ? "profileName" : "profileNameActive"}
-          disabled = {!changeDetails}
-          value={name}
-          onChange={onChange}
-        />
-        <input type="text" id="email" 
-          className={!changeDetails ? "profileEmail" : "profileEmailActive"}
-          disabled = {!changeDetails}
-          value={email}
-          onChange={onChange}
-        />
+        <form>
+          <input type="text" id="name" 
+            className={!changeDetails ? "profileName" : "profileNameActive"}
+            disabled = {!changeDetails}
+            value={name}
+            onChange={onChange}
+          />
+          <input type="text" id="email" 
+            className={!changeDetails ? "profileEmail" : "profileEmailActive"}
+            disabled = {!changeDetails}
+            value={email}
+            onChange={onChange}
+          />
+        </form>
       </div>
     </main>
+
+    <Link to="/create-listing" className="createListing">
+      <img src={homeIcon} alt="home" />
+      <p>Sell or rent your home</p>
+      <img src={arrowRight} alt="arrow right" />
+    </Link>
   </div>
 }
 
